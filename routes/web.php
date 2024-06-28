@@ -2,8 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+use App\Livewire\Users;
+
+Route::get('/', function () { 
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
+        return view('welcome');
 });
 
 Route::middleware([
@@ -19,3 +24,5 @@ Route::middleware([
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
